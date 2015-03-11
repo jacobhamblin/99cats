@@ -1,0 +1,6 @@
+<h2>All Rental Requests</h2>
+<ul>
+  <% @cat_rental_requests.each do |request| %>
+  <li><%= link_to "#{request.cat.name}", cat_url(request.cat) %> was requested from <%= request.start_date %> until <%= request.end_date %></li>
+  <% end %>
+</ul>

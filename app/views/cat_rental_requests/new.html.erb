@@ -1,0 +1,31 @@
+<h2>Request Your Cat Here</h2>
+
+<% form_method = @request.persisted? ? "PATCH" : "POST" %>
+
+<form action="<%= cat_rental_requests_url %>" method="POST">
+<input type="hidden" name="_method" value="<%= form_method %>">
+
+  <label for="request_cat">Cat</label>
+  <select name="request[cat_id]"
+          id="request_cat">
+    <option value="" selected></option>
+    <% Cat.all.each do |cat| %>
+      <option value="<%= cat.id %>"
+              <%= "selected" if @request.cat == cat %>>
+        <%= cat.name %>
+      </option>
+    <% end %>
+  </select>
+  <br>
+  <br>
+  <label for="request_start_date">Start Date</label>
+  <input type="date" name="request[start_date]" id="request_start_date">
+  <br>
+
+  <label for="request_end_date">End Date</label>
+  <input type="date" name="request[end_date]" id="request_end_date">
+
+  <br>
+  <br>
+  <input type="submit" value="Make Request">
+</form>

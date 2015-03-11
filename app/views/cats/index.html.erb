@@ -1,0 +1,9 @@
+<h1>All Cats</h1>
+<ul>
+  <% @cats.each do |cat| %>
+  <li><%= link_to cat.name, cat_url(cat) %>
+  <% end %>
+</ul>
+<br>
+<%= button_to "Create a new cat!", new_cat_url, method: :get %>
+<%= button_to "Request a cat now!", new_cat_rental_request_url, method: :get %>

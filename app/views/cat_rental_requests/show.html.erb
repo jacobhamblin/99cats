@@ -1,0 +1,21 @@
+<h2>Your Cat Rental</h2>
+  <table>
+    <tr>
+      <td>Cat</td>
+      <td><%= @request.cat.name %></td>
+    </tr>
+    <tr>
+      <td>Start Date</td>
+      <td><%= @request.start_date %></td>
+    </tr>
+    <tr>
+      <td>End Date</td>
+      <td><%= @request.end_date %></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><%= @request.status %></td>
+    </tr>
+  </table>
+<br>
+<%= button_to "Make a new request!", new_cat_rental_request_url, method: :get %>
