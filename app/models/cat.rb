@@ -7,8 +7,15 @@ class Cat < ActiveRecord::Base
     dependent: :destroy
   )
 
+  has_one(
+    :owner,
+    class_name: :User,
+    foreign_key: :user_id,
+    primary_key: :id
+  )
+
   COAT_COLORS = %w(black calico tabby)
-  validates :birth_date, :color, :name, :sex, :description, presence: true
+  validates :birth_date, :color, :name, :sex, :description, :user_id, presence: true
   validates :color, inclusion: COAT_COLORS
 
   def age

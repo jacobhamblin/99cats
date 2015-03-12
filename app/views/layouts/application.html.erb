@@ -7,7 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <% if session[:session_token].nil? %>
+  <h3>99Cats</h3>
+  <% else %>
+  <h3><%= "Hi #{User.find_by_session_token(session[:session_token]).user_name}" %><%= button_to "Log Out", session_url, method: :delete %></h3>
+  <% end %>
   <% if flash[:notice] %>
     <pre><%= flash[:notice] %></pre>
   <% end %>

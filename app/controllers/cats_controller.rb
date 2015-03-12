@@ -1,4 +1,5 @@
 class CatsController < ApplicationController
+  before_action :check_owner, except: [:show, :new, :create, :index]
 
   def index
     @cats = Cat.all
@@ -18,6 +19,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    @cat.user_id = current_user.id
     if @cat.save
       flash[:notice] = "Created #{@cat.name}"
       redirect_to cat_url(@cat)
@@ -49,5 +51,16 @@ class CatsController < ApplicationController
     params[:cat].permit(
       :name, :birth_date, :color, :description, :sex
     )
+  end
+
+  def check_owner
+    @cats = Cat.all
+    @cat = @cats.find(params[:id])
+    if @cat.user_id == current_user.id
+      return true
+    else
+      flash[:notice] = "This isn't your cat..."
+      redirect_to cat_url(@cat)
+    end
   end
 end

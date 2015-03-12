@@ -7,8 +7,15 @@ class CatRentalRequest < ActiveRecord::Base
     primary_key: :id
   )
 
+  belongs_to(
+    :requester,
+    class_name: :User,
+    foreign_key: :user_id,
+    primary_key: :id
+  )
+
   STATUSES = %w(PENDING APPROVED DENIED)
-  validates :cat_id, :status, :start_date, :end_date, presence: true
+  validates :cat_id, :status, :start_date, :end_date, :user_id, presence: true
   validates :status, inclusion: STATUSES
   validate :overlapping_approved_requests
 

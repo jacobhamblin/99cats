@@ -1,0 +1,27 @@
+
+
+<h1>Log In</h1>
+
+<form action="/session" method="POST">
+  <label for="user_user_name">Username</label>
+  <input
+      type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
+
+
+
+  <input type="text"
+         name="user[user_name]"
+         id="user_user_name">
+  <br>
+  <label for="user_password">Password</label>
+  <input type="password"
+         name="user[password]"
+         id="user_password">
+  <br>
+  <br>
+  <input type="submit" value="Log in!">
+  <br>
+  Want to rent a cat? <%= button_to "Sign Up", new_user_url, method: :get %>
+</form>

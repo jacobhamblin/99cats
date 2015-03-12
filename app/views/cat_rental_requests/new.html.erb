@@ -3,6 +3,7 @@
 <% form_method = @request.persisted? ? "PATCH" : "POST" %>
 
 <form action="<%= cat_rental_requests_url %>" method="POST">
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 <input type="hidden" name="_method" value="<%= form_method %>">
 
   <label for="request_cat">Cat</label>

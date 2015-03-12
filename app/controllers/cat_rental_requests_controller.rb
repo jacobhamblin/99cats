@@ -1,4 +1,5 @@
 class CatRentalRequestsController < ApplicationController
+  before_action :check_owner, only: [:approve!, :deny!]
 
   def index
     @cat_rental_requests = CatRentalRequest.all
@@ -17,6 +18,7 @@ class CatRentalRequestsController < ApplicationController
 
   def create
     @request = CatRentalRequest.new(request_params)
+    @request.user_id = current_user.id
     if @request.save
       flash[:notice] = "Scheduled request!"
       redirect_to cat_rental_request_url(@request)
@@ -53,5 +55,17 @@ class CatRentalRequestsController < ApplicationController
       :cat_id, :status, :start_date, :end_date
     )
   end
+
+  def check_owner
+    @cat_rental_requests = CatRentalRequest.all
+    @request = @cat_rental_requests.find(params[:id])
+    if @request.cat.user_id == current_user.id
+      return true
+    else
+      flash[:notice] = "This isn't your cat..."
+      redirect_to cat_url(@request.cat)
+    end
+  end
+
 
 end
